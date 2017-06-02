@@ -66,4 +66,32 @@ ggplot(data=k,aes(x=genpop,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+them
   xlab("#Generations/#population (CU)")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
 ggsave('figures/boxplot-generations.pdf',width=sizes[1],height=sizes[2])
 
+k$binseq<-cut(k$mean.seq.length,breaks=c(min(k$mean.seq.length)-1,quantile(k$mean.seq.length)[2:5]))
+ggplot(data=k,aes(x=binseq,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
+  xlab("SeqLength (bp)")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
+ggsave('figures/boxplot-generations.pdf',width=sizes[1],height=sizes[2])
 
+
+w<-read.csv('data/gtError.1-300.csv',sep=" ",header=F)
+
+w<-w[w$V3 != "-",]
+w$V3<-droplevels(w$V3)
+
+w$V2<-as.numeric(as.character(w$V2))
+w$V3<-as.numeric(as.character(w$V3))
+w$V4<-as.numeric(as.character(w$V4))
+w$V5<-as.numeric(as.character(w$V5))
+w$V6<-as.numeric(as.character(w$V6))
+w$V7<-as.numeric(as.character(w$V7))
+
+
+w$V8<-(w$V3+w$V6)/(w$V2+w$V5)
+wm<-dcast(data=w,V1~.,fun.aggregate=mean,value.var="V8")
+names(wm)[2]<-"meanGtError"
+k<-merge(x=wm,y=k,by.x="V1",by.y="Replicate")
+k$meanGtErrorbin<-cut(k$meanGtError,breaks=c(min(k$meanGtError)-0.0001,quantile(k$meanGtError)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
+
+
+ggplot(data=k,aes(x=meanGtErrorbin,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
+  xlab("gt Error")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
+ggsave('figures/boxplot-gtError.pdf',width=8.69,height=8.39)
