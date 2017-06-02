@@ -43,7 +43,27 @@ ggsave('figures/mean-line-overall.pdf',width=6.37,height= 6.78)
 
 p<-read.csv('data/parameter.1.300.csv',sep=" ")
 
+d<-d[d$V3 %in% c("non","0","5","10","20","33","75"),]
+d$V3<-droplevels(d$V3)
 
 k<-merge(x=p,y=d[d$V2%in% "ASTRALIII",],by.x="Replicate",by.y="V1")
 k$binedLeaves<-cut(k$Number.of.leaves, breaks = c(min(k$Number.of.leaves)-1,quantile(k$Number.of.leaves)[2:5]))
-ggplot(data=k,aes(x=V3,y=V7,fill=V3,group=V3))+geom_boxplot()+facet_wrap(~binedLeaves,scale="free")
+
+ggplot(data=k,aes(x=binedLeaves,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
+  xlab("#taxa")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
+ggsave('figures/boxplot-species.pdf',width=sizes[1],height=sizes[2])
+
+
+
+ggplot(data=k,aes(x=binedLeaves,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
+  xlab("#taxa")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
+ggsave('figures/boxplot-species.pdf',width=sizes[1],height=sizes[2])
+
+k$normgen<-k$Generations/k$Haploid.efective.population.size
+k$genpop<-cut(k$normgen, breaks = c(min(k$normgen)-0.001,quantile(k$normgen)[2:5]))
+
+ggplot(data=k,aes(x=genpop,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
+  xlab("#Generations/#population (CU)")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
+ggsave('figures/boxplot-generations.pdf',width=sizes[1],height=sizes[2])
+
+
