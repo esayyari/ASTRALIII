@@ -69,7 +69,7 @@ ggsave('figures/boxplot-generations.pdf',width=sizes[1],height=sizes[2])
 k$binseq<-cut(k$mean.seq.length,breaks=c(min(k$mean.seq.length)-1,quantile(k$mean.seq.length)[2:5]))
 ggplot(data=k,aes(x=binseq,y=V7,fill=V3))+geom_boxplot(outlier.alpha = 0.5)+theme_bw()+facet_wrap(~V4,scale="free_y")+
   xlab("SeqLength (bp)")+ylab('FN rates')+theme(legend.position ="bottom")+scale_fill_brewer(palette = "RdBu",name="")
-ggsave('figures/boxplot-generations.pdf',width=sizes[1],height=sizes[2])
+ggsave('figures/boxplot-seqLength.pdf',width=sizes[1],height=sizes[2])
 
 
 w<-read.csv('data/gtError.1-300.csv',sep=" ",header=F)
