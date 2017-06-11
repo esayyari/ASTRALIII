@@ -20,23 +20,23 @@ g$V10<-as.numeric(as.character(g$V10))
 g$rf<-(g$V6+g$V9)/(g$V5+g$V8)
 
 
-gT1000<-dcast(data=g,V1+V2+V3~.,fun.aggregate = mean,value.var = "rf")
-names(gT1000)[4] = "rf"
-gT1000$V4<-1000
-gT500<-dcast(data=g,V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,500))},value.var="rf")
-names(gT500)[4] = "rf"
-gT500$V4<-500
-gT200<-dcast(data=g,V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,200))},value.var="rf")
-names(gT200)[4] = "rf"
-gT200$V4<-200
-gT50<-dcast(data=g,V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,50))},value.var="rf")
-names(gT50)[4] = "rf"
-gT50$V4<-50
-gT<-rbind(gT1000,gT500,gT200,gT50)
+gT<-dcast(data=g[g$V3=="non",],V1+V2~.,fun.aggregate = mean,value.var = "rf")
+names(gT)[3] = "rf"
+# gT1000$V4<-1000
+# gT500<-dcast(data=g[g$V3=="non",],V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,500))},value.var="rf")
+# names(gT500)[4] = "rf"
+# gT500$V4<-500
+# gT200<-dcast(data=g[g$V3=="non",],V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,200))},value.var="rf")
+# names(gT200)[4] = "rf"
+# gT200$V4<-200
+# gT50<-dcast(data=g[g$V3=="non",],V1+V2+V3~.,fun.aggregate = function(x){mean(head(x,50))},value.var="rf")
+# names(gT50)[4] = "rf"
+# gT50$V4<-50
+# gT<-rbind(gT1000,gT500,gT200,gT50)
 
-gT<-merge(x=d,y=gT,by.x=c("V3","V4","V5"),by.y=c("V2","V3","V4"))
+gT<-merge(x=d,y=gT,by.x=c("V1","V3"),by.y=c("V1","V2"))
 
-k<-merge(x=p,y=gT,by.x="Replicate",by.y="V1.x")
+k<-merge(x=p,y=gT,by.x="Replicate",by.y="V1")
 
 
 
@@ -44,7 +44,7 @@ k<-merge(x=p,y=gT,by.x="Replicate",by.y="V1.x")
 
 k$V4<-factor(k$V4,levels=c("non","0","3","5","7","10","20","33","75"))
 
-k$meanGtErrorbin<-cut(k$rf,breaks=c(0,.25,.33,.50,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
+k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/4,1/3,0.45,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
 #k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
 
 ggplot(data=k,aes(x=V4,y=V8))+facet_wrap(~V5,scales="free_y")+geom_boxplot()+
@@ -67,9 +67,9 @@ ggplot(data=k,aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=8.4)
 
 ggplot(data=k,aes(x=V4,y=V8))+
-  stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom="line",linetype=2)+
+  stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom=c("line","point"),linetype=2)+
   stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
-               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.2,linetype=2)+
   stat_summary(aes(group=1),geom="line",linetype=1)+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
