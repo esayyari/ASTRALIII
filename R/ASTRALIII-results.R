@@ -38,14 +38,13 @@ gT<-merge(x=d,y=gT,by.x=c("V1","V3"),by.y=c("V1","V2"))
 
 k<-merge(x=p,y=gT,by.x="Replicate",by.y="V1")
 
-
-
-
-
 k$V4<-factor(k$V4,levels=c("non","0","3","5","7","10","20","33","75"))
 
-k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/4,1/3,0.45,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
+k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/4,1/3,1/2,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
 #k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
+
+k$AL=as.factor(k$V3)
+
 
 ggplot(data=k,aes(x=V4,y=V8))+facet_wrap(~V5,scales="free_y")+geom_boxplot()+
   theme_bw()+xlab("contraction")+ylab("FN ratio")
@@ -77,6 +76,19 @@ ggplot(data=k,aes(x=V4,y=V8))+
   theme_bw()+xlab("contraction threshold")+ylab("Species tree error (FN ratio)")+
   theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Mean GT error")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII-paper.pdf',width=12, height=4)
+
+ggplot(data=k,aes(x=V4,y=V8))+
+  stat_summary(aes(group=AL,color=AL),geom=c("line"),linetype=2)+
+  stat_summary(aes(group=AL,color=AL),geom=c("point"),size=0.5)+
+  #stat_summary(aes(group=AL,color=AL),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+  #             fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.2,linetype=2)+
+  stat_summary(aes(group=1),geom="line",linetype=1)+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  facet_wrap(~V5,scales="free_y",nrow=1)+
+  theme_bw()+xlab("contraction threshold")+ylab("Species tree error (FN ratio)")+
+  theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Alignment len")
+ggsave('figures/ASTRALIII/mean-point-contraction-AL-ASTRALIII-paper.pdf',width=12, height=4)
 
 
 ggplot(data=k,aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
