@@ -9,7 +9,11 @@ d<-d[d$V4 != "1000",]
 
 d$V4<-droplevels(d$V4)
 
+<<<<<<< HEAD
 p<-read.csv('data/simphy/parameter.1.300.csv',sep=" ")
+=======
+p<-read.csv('data/parameter.1.300.csv',sep=" ")
+>>>>>>> 4ac20ae93100e94d692d2d88f8d9b76036131174
 
 d<-d[d$V3 %in% c("non","0","5","10","20","33","75"),]
 d$V3<-droplevels(d$V3)
@@ -18,7 +22,11 @@ k<-merge(x=p,y=d[d$V2%in% "ASTRALIII",],by.x="Replicate",by.y="V1")
 k$binedLeaves<-cut(k$Number.of.leaves, breaks = c(min(k$Number.of.leaves)-1,quantile(k$Number.of.leaves)[2:5]))
 
 
+<<<<<<< HEAD
 w<-read.csv('data/simphy/gtError.csv',sep=" ",header=F)
+=======
+w<-read.csv('data/gtError.1-300.csv',sep=" ",header=F)
+>>>>>>> 4ac20ae93100e94d692d2d88f8d9b76036131174
 
 w<-w[w$V3 != "-",]
 w$V3<-droplevels(w$V3)
