@@ -44,7 +44,8 @@ k<-merge(x=p,y=gT,by.x="Replicate",by.y="V1.x")
 
 k$V4<-factor(k$V4,levels=c("non","0","3","5","7","10","20","33","75"))
 
-k$meanGtErrorbin<-cut(k$rf,breaks=c(0,.25,.33,.5,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
+k$meanGtErrorbin<-cut(k$rf,breaks=c(0,.25,.33,.50,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
+#k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
 
 ggplot(data=k,aes(x=V4,y=V8))+facet_wrap(~V5,scales="free_y")+geom_boxplot()+
   theme_bw()+xlab("contraction")+ylab("FN ratio")
@@ -79,8 +80,6 @@ ggplot(data=k,aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/boxplot-contraction-seqLength-ASTRALIII.pdf',width=8.69, height=9)
 
-
-k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
 
 ggplot(data=k,aes(x=meanGtErrorbin,y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
   theme_bw()+xlab("gt Error")+ylab("FN ratio")+scale_fill_brewer(palette = "RdBu",name="")+
