@@ -77,7 +77,7 @@ ggplot(data=k,aes(x=V4,y=V8))+
   theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Mean GT error")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII-paper.pdf',width=12, height=4)
 
-ggplot(data=k,aes(x=V4,y=V8))+
+ggplot(data=k[k$V4!="75",],aes(x=V4,y=V8))+
   stat_summary(aes(group=AL,color=AL),geom=c("line"),linetype=2)+
   stat_summary(aes(group=AL,color=AL),geom=c("point"),size=0.5)+
   #stat_summary(aes(group=AL,color=AL),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
@@ -87,8 +87,8 @@ ggplot(data=k,aes(x=V4,y=V8))+
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
   facet_wrap(~V5,scales="free_y",nrow=1)+
   theme_bw()+xlab("contraction threshold")+ylab("Species tree error (FN ratio)")+
-  theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Alignment len")
-ggsave('figures/ASTRALIII/mean-point-contraction-AL-ASTRALIII-paper.pdf',width=12, height=4)
+  theme(legend.position = c(.08,.8),legend.direction = 2)+scale_color_brewer(palette = "Dark2",name="Seq. len")
+ggsave('figures/ASTRALIII/mean-point-contraction-AL-ASTRALIII-paper.pdf',width=12, height=4.1)
 
 
 ggplot(data=k,aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
