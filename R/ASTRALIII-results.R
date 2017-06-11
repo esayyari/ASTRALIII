@@ -4,6 +4,8 @@ require(reshape2)
 d<-read.csv('data/ASTRALIII/ASTRALIII.compare.csv', sep=" ",header=F)
 p<-read.csv('data/ASTRALIII/parameter.log.info',sep=" ",header=T)
 g<-read.csv('data/ASTRALIII/gtError.csv',sep=" ",header=F)
+d<-d[d$V2 == "ASTRALIII",]
+d$V2<-droplevels(d$V2)
 g<-g[g$V6 != "-",]
 g$V6<-droplevels(g$V6)
 g$V5<-droplevels(g$V5)
