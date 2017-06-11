@@ -66,9 +66,9 @@ ggplot(data=k,aes(x=meanGtErrorbin,y=V8,fill=V4))+facet_wrap(~V5,scales="free_y"
 ggsave('figures/ASTRALIII/boxplot-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
 
 
-ggplot(data=k,aes(x=V5,y=V8,color=V4,group=V4))+
+ggplot(data=k,aes(x=as.factor(V5),y=V8,color=V4,group=V4))+
   stat_summary(group=1,fun.y=mean,geom="point")+
-  facet_wrap(~meanGtErrorbin,scales="free_y")+theme_bw()+xlab("seq length")+ylab("FN ratio")+
+  facet_wrap(~meanGtErrorbin,scales="free_y")+theme_bw()+xlab("number of genes")+ylab("FN ratio")+
   scale_fill_brewer(palette = "Set1",name="")+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
