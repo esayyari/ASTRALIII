@@ -68,7 +68,7 @@ ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII.pdf',width=8.
 
 ggplot(data=k,aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
   facet_wrap(~V5,scales="free_y",nrow=1)+stat_summary(geom="line")+
-  theme_bw()+xlab("contraction")+ylab("FN ratio")+
+  theme_bw()+xlab("contraction")+ylab("Species tree error (FN ratio)")+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
   theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Mean GT error")
