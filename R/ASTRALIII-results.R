@@ -61,7 +61,7 @@ ggsave('figures/ASTRALIII/boxplot-contraction-seqLength-ASTRALIII.pdf',width=8.6
 k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
 
 ggplot(data=k,aes(x=meanGtErrorbin,y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
-  theme_bw()+xlab("seq length")+ylab("FN ratio")+scale_fill_brewer(palette = "RdBu",name="")+
+  theme_bw()+xlab("gt Error")+ylab("FN ratio")+scale_fill_brewer(palette = "RdBu",name="")+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/boxplot-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
 
