@@ -66,11 +66,15 @@ ggplot(data=k,aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
   theme(legend.position = "bottom")+scale_color_brewer(palette = "Dark2",name="")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=8.4)
 
-ggplot(data=k,aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
-  facet_wrap(~V5,scales="free_y",nrow=1)+stat_summary(geom="line")+
-  theme_bw()+xlab("contraction")+ylab("Species tree error (FN ratio)")+
+ggplot(data=k,aes(x=V4,y=V8))+
+  stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom="line")+
+  stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  stat_summary(aes(group=1),geom="line",linetype=2)+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  facet_wrap(~V5,scales="free_y",nrow=1)+
+  theme_bw()+xlab("contraction")+ylab("Species tree error (FN ratio)")+
   theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Mean GT error")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII-paper.pdf',width=12, height=4)
 
