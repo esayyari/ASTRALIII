@@ -48,8 +48,19 @@ ggsave('figures/ASTRALIII/boxplot-contraction-all-ASTRALIII.pdf',width=8.69, hei
 
 
 ggplot(data=k,aes(x=V4,y=V8))+facet_wrap(~V5,scales="free_y")+stat_summary(group=1,geom="point")+
-  theme_bw()+xlab("contraction")+ylab("FN ratio")
+  theme_bw()+xlab("contraction")+ylab("FN ratio")+stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+                                                               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)
 ggsave('figures/ASTRALIII/mean-point-contraction-all-ASTRALIII.pdf',width=8.69, height=8.4)
+
+
+ggplot(data=k,aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
+  facet_wrap(~V5,scales="free_y")+stat_summary(geom="line")+
+  theme_bw()+xlab("contraction")+ylab("FN ratio")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+  fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  theme(legend.position = "bottom")+scale_color_brewer(palette = "Dark2",name="")
+ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=8.4)
+
 
 
 ggplot(data=k,aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
