@@ -125,4 +125,4 @@ ggplot(data=k,aes(x=as.factor(V5),y=V8,color=V4,group=V4))+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
 
-
+Time<-read.csv('data/ASTRALIII/runningTime.csv',sep=" ",header=F)
