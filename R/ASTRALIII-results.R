@@ -33,8 +33,8 @@ g$rf<-(g$V6+g$V9)/(g$V5+g$V8)
 gT<-dcast(data=g[g$V3=="non",],V1+V2~.,fun.aggregate = mean,value.var = "rf")
 names(gT)[3] = "rf"
 
-ggplot(data=gT,aes(x=rf,fill=as.factor(V2)))+geom_density(adjust=1.5,alpha=0.5)+
-  theme_bw()+theme(legend.position = c(0.88,0.7))+scale_fill_brewer(palette = "Set1",name="")+
+ggplot(data=gT,aes(x=rf,color=as.factor(V2)))+geom_density(adjust=1.5,alpha=0.5)+
+  theme_bw()+theme(legend.position = c(0.88,0.7))+scale_color_brewer(palette = "Set1",name="")+
   xlab("FN rate")+ylab("Density")
 ggsave('figures/ASTRALIII/gtError.pdf',width=5.17,height=4.6)
 
