@@ -214,7 +214,7 @@ ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group
   theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
   scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
-  theme(legend.position = c(0.85,0.2))+geom_smooth(method="lm")
+  theme(legend.position = c(0.85,0.2))+geom_smooth(method="lm")+
   facet_wrap(~V2)+ylab("Running time (seconds)")+xlab("#Genes")
   ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-smooth-time.pdf',width=7.47,height=4.33)
   
