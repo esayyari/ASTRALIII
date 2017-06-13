@@ -10,7 +10,7 @@ d$V2<-droplevels(d$V2)
 
 tr<-read.csv('data/ASTRALIII/truecompare.csv',sep=" ",header=F)
 trT<-dcast(data=tr,V3~.,fun.aggregate=mean,value.var="V7")
-names(trT)[3]<-"rf"
+names(trT)[2]<-"rf"
 
 po<-read.csv('data/ASTRALIII/polytomystat.csv',sep=" ",header=F)
 po$poly<-(po$V10)/(po$V7-3)
@@ -32,6 +32,11 @@ g$rf<-(g$V6+g$V9)/(g$V5+g$V8)
 
 gT<-dcast(data=g[g$V3=="non",],V1+V2~.,fun.aggregate = mean,value.var = "rf")
 names(gT)[3] = "rf"
+
+ggplot(data=gT,aes(x=rf,fill=as.factor(V2)))+geom_density(adjust=1.5,alpha=0.5)+
+  theme_bw()+theme(legend.position = c(0.88,0.7))+scale_fill_brewer(palette = "Set1",name="")+
+  xlab("FN rate")+ylab("Density")
+ggsave('figures/ASTRALIII/gtError.pdf',width=5.17,height=4.6)
 
 poT<-dcast(data=po[po$V4 == 1000,],V1+V2+V3~.,fun.aggregate=mean, value.var="poly")
 names(poT)[4]<-"poly"
@@ -136,5 +141,10 @@ ggplot(data=time[time$V2 == "ASTRALIII",],aes(x=V4,y=V6,color=as.factor(V5),grou
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},
                width=0.3)+xlab("contraction")+ylab("Running time (seconds)")
 ggsave('figures/ASTRALIII/runningTime.pdf',width=5.71,height=4.62)
+
+
+
+
+
 
        
