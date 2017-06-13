@@ -9,7 +9,7 @@ d$V2<-droplevels(d$V2)
 
 
 tr<-read.csv('data/ASTRALIII/truecompare.csv',sep=" ",header=F)
-trT<-dcast(data=tr,V1+V3~.,fun.aggregate=mean,value.var="V7")
+trT<-dcast(data=tr,V3~.,fun.aggregate=mean,value.var="V7")
 names(trT)[3]<-"rf"
 
 po<-read.csv('data/ASTRALIII/polytomystat.csv',sep=" ",header=F)
