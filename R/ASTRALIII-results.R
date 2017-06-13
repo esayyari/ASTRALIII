@@ -125,4 +125,16 @@ ggplot(data=k,aes(x=as.factor(V5),y=V8,color=V4,group=V4))+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
 
-Time<-read.csv('data/ASTRALIII/runningTime.csv',sep=" ",header=F)
+time<-read.csv('data/ASTRALIII/runningTime.csv',sep=" ",header=F)
+time$V4<-factor(time$V4,levels=c("non","0","3","5","7","10","20","33","50","75"))
+
+ggplot(data=time[time$V2 == "ASTRALIII",],aes(x=V4,y=V6,color=as.factor(V5),group=as.factor(V5)))+
+         stat_summary(fun.y="mean",geom="line")+theme_bw()+
+  stat_summary(fun.y="mean",geom="point")+theme(legend.position =c(.88,.75))+
+  scale_color_brewer(palette = "Set1",name="")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},
+               width=0.3)+xlab("contraction")+ylab("Running time (seconds)")
+ggsave('figures/ASTRALIII/runningTime.pdf',width=5.71,height=4.62)
+
+       
