@@ -1,0 +1,27 @@
+%latex.default(format(dcast(data = k, V5 + V3 ~ V4, fun.aggregate = mean,     value.var = "V8") * 100, digits = 2), file = "tabels1.latex",     rowname = NULL)%
+\begin{table}[!tbp]
+\begin{center}
+\caption{Species tree error (FN ratio) for different model conditions
+of the S1 dataset, with different filtering ({\em columns}).
+\TODO{add 50\% and highlight the best in each row in bold.}}\label{tab:mean}
+\begin{tabular}{l|l|llllllllll}
+\hline\hline
+50& 200&17.6&15.9&16.3&16.3&16.4&16.7&17.1&19.6&23.0&31.9\tabularnewline
+50& 400&13.9&13.2&13.1&12.8&13.0&12.9&13.8&14.6&16.4&20.7\tabularnewline
+50& 800&11.9&11.5&11.3&11.2&11.1&11.1&11.0&11.8&12.6&15.6\tabularnewline
+50&1600&10.2&10.2&10.2&10.1& 9.9&10.0&10.1&10.1&10.5&12.0\tabularnewline
+200& 200&11.4&10.4&10.2&10.5&10.3&10.5&10.3&12.2&14.8&21.1\tabularnewline
+200& 400& 9.0& 8.2& 8.2& 8.1& 8.1& 8.3& 8.4& 8.9& 9.9&13.1\tabularnewline
+200& 800& 7.3& 7.2& 6.9& 6.9& 7.0& 7.0& 7.0& 7.2& 7.5& 8.9\tabularnewline
+200&1600& 6.1& 6.3& 6.2& 6.2& 6.2& 6.2& 6.1& 6.4& 6.3& 7.3\tabularnewline
+500& 200& 9.7& 8.5& 8.6& 8.5& 8.5& 8.4& 8.4& 9.6&11.5&16.4\tabularnewline
+500& 400& 7.1& 6.8& 6.4& 6.5& 6.5& 6.5& 6.5& 6.7& 7.8&10.5\tabularnewline
+500& 800& 5.6& 5.4& 5.3& 5.4& 5.3& 5.3& 5.2& 5.2& 5.7& 6.3\tabularnewline
+500&1600& 4.8& 4.6& 4.6& 4.5& 4.4& 4.5& 4.4& 4.4& 4.7& 5.1\tabularnewline
+1000& 200& 8.9& 7.9& 7.4& 7.3& 7.1& 7.0& 7.3& 8.3&10.0&13.2\tabularnewline
+1000& 400& 6.9& 5.9& 5.7& 5.7& 5.5& 5.5& 5.4& 5.6& 6.6& 8.1\tabularnewline
+1000& 800& 5.3& 4.9& 4.8& 4.7& 4.8& 4.7& 4.5& 4.4& 4.7& 5.4\tabularnewline
+1000&1600& 4.1& 4.1& 4.0& 3.9& 3.8& 3.7& 3.9& 3.9& 4.0& 4.3\tabularnewline
+\hline
+\end{tabular}\end{center}
+\end{table}
