@@ -144,7 +144,7 @@ ggsave('figures/ASTRALIII/runningTime.pdf',width=5.71,height=4.62)
 
 f<-read.csv('data/ASTRALIII/species.gtError.csv',sep=" ",header=F)
 ggplot(data=f,aes(x=V4))+geom_density(adjustment=1.5)+theme_bw()+xlab("FN rate")
-ggsave('figures/ASTRALIII/speciesGTError.pdf',width=4.1,height=3.81)
+ggsave('figures/ASTRALIII/speciesGTError.pdf',width=5.17,height=4.6)
 
 
        
