@@ -171,14 +171,23 @@ time<-read.csv('data/Avian-Mammalian/different_k_result.csv',sep="\t",header=F)
 time$V4<-as.numeric(as.character(time$V4))
 time$V6m=time$V6/60
 
-ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
+ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
   theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
   scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   theme(legend.position = c(0.85,0.2))+
-  facet_wrap(~V2)+stat_summary(fun.y="mean",geom="line")+ylab("Running time (seconds)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")
+  facet_wrap(~V2)+geom_smooth(method="lm")+ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")
 ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-time.pdf',width=7.47,height=4.33)
 
+ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
+  theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
+  #scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  #scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  theme(legend.position = c(0.15,0.8))+
+  facet_wrap(~V2)+geom_smooth(se=F)+ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")
+ggsave('figures/Avian-Mammalian/avia-1000-500-time.pdf',width=7.47,height=4.33)
+
+pdf("figures/Avian-Mammalian/avia-1000-500-both-scale-time.pdf",width=7.5,height=4)
 multiplot(
 ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
   theme_bw()+
@@ -199,7 +208,7 @@ ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4
   ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes"),
 cols=2
 )
-ggsave("figures/Avian-Mammalian/avia-1000-500-both-scale-time.pdf",width=7.5,height=4)
+dev.off()
 
 ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
   theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
