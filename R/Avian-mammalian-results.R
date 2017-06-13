@@ -1,6 +1,53 @@
 require(ggplot2)
 require(reshape2)
 require(scales)
+
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
 sizes=c(4.5,4.5)
 d<-read.csv('data/Avian-Mammalian/avian-contraction.csv',sep="\t",header = T)
 
@@ -122,6 +169,8 @@ ggsave('figures/Avian-Mammalian/avian-0.5X-1000-500-time.pdf',width=sizes[1],hei
 time<-read.csv('data/Avian-Mammalian/different_k_result.csv',sep="\t",header=F)
 
 time$V4<-as.numeric(as.character(time$V4))
+time$V6m=time$V6/60
+
 ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
   theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
   scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
@@ -129,6 +178,28 @@ ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group
   theme(legend.position = c(0.85,0.2))+
   facet_wrap(~V2)+stat_summary(fun.y="mean",geom="line")+ylab("Running time (seconds)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")
 ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-time.pdf',width=7.47,height=4.33)
+
+multiplot(
+ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
+  theme_bw()+
+  scale_color_brewer(palette = "Set1",name="") +
+  scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  theme(legend.position = c(0.75,0.2))+
+  facet_wrap(~V2)+
+  geom_smooth(se=F,method="lm")+
+  ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes"),
+ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
+  theme_bw()+
+  scale_color_brewer(palette = "Set1",name="") +
+  theme(legend.position = "none")+
+  scale_x_continuous(breaks=c(2^8,2^11,2^12,2^13,2^14),labels = trans_format("log2", math_format(2^.x)))+
+  facet_wrap(~V2)+
+  geom_smooth(se=F)+
+  ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes"),
+cols=2
+)
+ggsave("figures/Avian-Mammalian/avia-1000-500-both-scale-time.pdf",width=7.5,height=4)
 
 ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
   theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
