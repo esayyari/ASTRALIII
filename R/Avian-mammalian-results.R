@@ -197,7 +197,10 @@ ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4
   theme(legend.position = c(0.75,0.2))+
   facet_wrap(~V2)+
   geom_smooth(se=F,method="lm")+
-  ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes"),
+  ylab("Running time (minutes)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")+
+  annotate(x=2^9,y=2.5,geom="text",label=format(lm(log(V6m)~log(V4),data=time[time$V2=="1500"&time$V5=="ASTRAL2",])$coefficients[[2]],digits=3),color="tomato")+
+  annotate(x=2^11,y=5,geom="text",label=format(lm(log(V6m)~log(V4),data=time[time$V2=="1500"&time$V5=="ASTRAL3",])$coefficients[[2]],digits=3),color="steelblue")
+,
 ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
   theme_bw()+
   scale_color_brewer(palette = "Set1",name="") +
