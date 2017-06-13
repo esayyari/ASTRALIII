@@ -1,5 +1,6 @@
 require(ggplot2)
 require(reshape2)
+require(scales)
 sizes=c(4.5,4.5)
 d<-read.csv('data/Avian-Mammalian/avian-contraction.csv',sep="\t",header = T)
 
@@ -116,3 +117,24 @@ ggplot(data=t,aes(x=V2,y=V4,group=V3,color=V3))+stat_summary(fun.y="mean",geom="
   theme_bw()+scale_color_brewer(palette = "Set1",name="")+
   theme(legend.position  = c(0.4,0.1),legend.direction = "horizontal")
 ggsave('figures/Avian-Mammalian/avian-0.5X-1000-500-time.pdf',width=sizes[1],height = sizes[2])
+
+
+time<-read.csv('data/Avian-Mammalian/different_k_result.csv',sep="\t",header=F)
+
+time$V4<-as.numeric(as.character(time$V4))
+ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
+  theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
+  scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  theme(legend.position = c(0.85,0.2))+
+  facet_wrap(~V2)+stat_summary(fun.y="mean",geom="line")+ylab("Running time (seconds)")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")
+ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-time.pdf',width=7.47,height=4.33)
+
+ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group=V5))+
+  theme_bw()+scale_color_brewer(palette = "Set1",name="") + 
+  scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
+  theme(legend.position = c(0.85,0.2))+geom_smooth(method="lm")
+  facet_wrap(~V2)+ylab("Running time (seconds)")+xlab("#Genes")
+  ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-smooth-time.pdf',width=7.47,height=4.33)
+  
