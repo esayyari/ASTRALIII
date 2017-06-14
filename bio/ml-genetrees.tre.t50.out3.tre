@@ -1,0 +1,142 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=48;
+	taxlabels
+	ACACH[&name="Rifleman"]
+	ANAPL[&name="Pekin duck"]
+	APAVI[&name="Bar-tailed trogon"]
+	APTFO[&name="Emperor penguin"]
+	BALRE[&name="Grey-crowned crane"]
+	BUCRH[&name="Rhinoceros hornbill"]
+	CALAN[&name="Anna's hummingbird"]
+	CAPCA[&name="Chuck-will's-widow"]
+	CARCR[&name="Red-legged seriema"]
+	CATAU[&name="Turkey vulture"]
+	CHAPE[&name="Chimney swift"]
+	CHAVO[&name="Killdeer"]
+	CHLUN[&name="MacQueen's bustard"]
+	COLLI[&name="Pigeon"]
+	COLST[&name="Speckled mousebird"]
+	CORBR[&name="American crow"]
+	CUCCA[&name="Common cuckoo"]
+	EGRGA[&name="Little egret"]
+	EURHE[&name="Sunbittern"]
+	FALPE[&name="Peregrine falcon"]
+	FULGL[&name="Northern fulmar"]
+	GALGA[&name="Chicken"]
+	GAVST[&name="Red-throated loon"]
+	GEOFO[&name="Medium ground-finch"]
+	HALAL[&name="White-tailed eagle"]
+	HALLE[&name="Bald eagle"]
+	LEPDI[&name="Cuckoo-roller"]
+	MANVI[&name="Golden-collared manakin"]
+	MELGA[&name="Turkey"]
+	MELUN[&name="Budgerigar"]
+	MERNU[&name="Carmine bee-eater"]
+	MESUN[&name="Brown mesite"]
+	NESNO[&name="Kea"]
+	NIPNI[&name="Crested ibis"]
+	OPHHO[&name="Hoatzin"]
+	PELCR[&name="Dalmatian pelican"]
+	PHACA[&name="Great cormorant"]
+	PHALE[&name="White-tailed tropicbird"]
+	PHORU[&name="American flamingo"]
+	PICPU[&name="Downy woodpecker"]
+	PODCR[&name="Great-crested grebe"]
+	PTEGU[&name="Yellow-throated sandgrouse"]
+	PYGAD[&name="Adelie penguin"]
+	STRCA[&name="Common ostrich"]
+	TAEGU[&name="Zebra finch"]
+	TAUER[&name="Red-crested turaco"]
+	TINMA[&name="White-throated tinamou"]
+	TYTAL[&name="Barn owl"]
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] (CAPCA:0.0,((CALAN:0.0,CHAPE:0.0)[&label=1]:3.606768,(((BALRE:0.0,(CHAVO:0.0,OPHHO:0.0)[&label=0.47]:0.010544)[&label=0.74]:0.024302,(((CUCCA:0.0,(TAUER:0.0,CHLUN:0.0)[&label=0.57]:0.017146)[&label=1]:0.162735,(((TINMA:0.0,STRCA:0.0)[&label=1]:3.952316,(ANAPL:0.0,(MELGA:0.0,GALGA:0.0)[&label=1]:3.672139)[&label=1]:2.911939)[&label=1]:4.147307,((PODCR:0.0,PHORU:0.0)[&label=1]:3.769173,(COLLI:0.0,(PTEGU:0.0,MESUN:0.0)[&label=1]:0.703234)[&label=0.91]:0.035179)[&label=1]:0.120362)[&label=0.93]:0.055776)[&label=0.84]:0.040514,((CARCR:0.0,(FALPE:0.0,((MELUN:0.0,NESNO:0.0)[&label=1]:5.015005,(ACACH:0.0,(MANVI:0.0,(CORBR:0.0,(GEOFO:0.0,TAEGU:0.0)[&label=1]:2.595743)[&label=1]:3.677876)[&label=1]:1.301731)[&label=1]:4.602263)[&label=1]:0.517682)[&label=1]:0.563201)[&label=1]:0.593425,((TYTAL:0.0,(CATAU:0.0,(HALLE:0.0,HALAL:0.0)[&label=1]:5.168791)[&label=1]:0.969291)[&label=1]:0.10495,(COLST:0.0,(LEPDI:0.0,(APAVI:0.0,(BUCRH:0.0,(MERNU:0.0,PICPU:0.0)[&label=1]:0.539621)[&label=1]:0.822834)[&label=1]:0.284379)[&label=1]:0.619091)[&label=0.79]:0.048698)[&label=1]:0.155333)[&label=1,!rotate=true]:1.475385)[&label=0.69]:0.021801)[&label=0.41]:0.011013,((EURHE:0.0,PHALE:0.0)[&label=1]:0.804042,(GAVST:0.0,((PHACA:0.0,(NIPNI:0.0,(EGRGA:0.0,PELCR:0.0)[&label=1]:0.182076)[&label=1]:0.645372)[&label=1]:1.231844,((APTFO:0.0,PYGAD:0.0)[&label=1]:5.03578,FULGL:0.0)[&label=1]:0.556484)[&label=1]:0.978093)[&label=1]:0.67071)[&label=1]:0.066555)[&label=1]:1.330538):0.0);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="label";
+	set branchLabels.fontName="Helvetica";
+	set branchLabels.fontSize=9;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=true;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=0;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute="label";
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="Helvetica";
+	set nodeLabels.fontSize=10;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShape.colourAttribute="User selection";
+	set nodeShape.isShown=false;
+	set nodeShape.minSize=10.0;
+	set nodeShape.scaleType=Width;
+	set nodeShape.shapeType=Circle;
+	set nodeShape.size=4.0;
+	set nodeShape.sizeAttribute="Fixed";
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=true;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=false;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=3.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="name";
+	set tipLabels.fontName="Helvetica";
+	set tipLabels.fontSize=10;
+	set tipLabels.fontStyle=2;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=true;
+	set trees.orderType="increasing";
+	set trees.rooting=true;
+	set trees.rootingType="User Selection";
+	set trees.transform=true;
+	set trees.transformType="cladogram";
+end;
+
