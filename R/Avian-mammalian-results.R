@@ -91,9 +91,9 @@ ggplot(data=d[d$seq.length == "500",],
        aes(contraction.rate,Error.Rate))+
   stat_summary(aes(group=input.type,color=input.type),
                geom=c("line","point"),linetype=2)+
-  stat_summary(aes(group=input.type,color=input.type),
-               geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
-               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4,linetype=2)+
+  #stat_summary(aes(group=input.type,color=input.type),
+  #             geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+  #             fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4,linetype=2)+
   stat_summary(aes(group=1),geom="line",linetype=1)+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
