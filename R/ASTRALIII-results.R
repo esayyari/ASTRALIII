@@ -148,13 +148,13 @@ ggsave('figures/ASTRALIII/speciesGTError.pdf',width=5.17,height=4.6)
 
 w<-read.csv('data/ASTRALIII/setXsize.csv',sep=" ",header=F)
 w$V4<-factor(w$V4,levels=c("non","0","3","5","7","10","20","33","50","75"))
-ggplot(data=w[w$V2 == "ASTRALIII",],aes(x=V4,y=V6,color=as.factor(V3),group=as.factor(V3)))+
+ggplot(data=w[],aes(x=V4,y=V6,color=as.factor(V3),group=as.factor(V3)))+
   stat_summary(fun.y="mean",geom="line")+stat_summary(fun.y="mean",geom="point")+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
-  facet_wrap(~V5)+theme_bw()+scale_color_brewer(palette = "Set1",name="")+
+  facet_grid(V2~V5)+theme_bw()+scale_color_brewer(palette = "Set1",name="")+
   theme(legend.position = "bottom")+xlab("contraction")+ylab("Set X cluster size")
-ggsave('figures/ASTRALIII/setXsize.pdf',width=6,height=6.5)
+ggsave('figures/ASTRALIII/setXsize.pdf',width=8.5,height=8.5)
 
 
        
