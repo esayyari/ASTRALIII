@@ -1,6 +1,6 @@
 require(ggplot2)
 require(reshape2)
-
+require(scale)
 d<-read.csv('data/ASTRALIII/species.comparison.results.csv', sep=" ",header=F)
 p<-read.csv('data/ASTRALIII/parameter.log.info',sep=" ",header=T)
 g<-read.csv('data/ASTRALIII/gtError.csv',sep=" ",header=F)
@@ -178,3 +178,20 @@ ggplot(data=w[w$V2 %in% c("ASTRAL.5.2.5","ASTRAL.4.11.1"),],aes(x=V4,y=V6,color=
   scale_linetype_manual(name="",labels=c("ASTRAL-II","ASTRAL-III"),values=c(2,1))
 ggsave("figures/ASTRALIII/setX-both.pdf")
        
+
+
+
+
+h<-read.csv('data/ASTRALIII/weightcalculations.csv',sep=" ",header=F)
+h$V4<-factor(h$V4,levels=c("non","0","3","5","7","10","20","33","50","75"))
+
+h$avgWeghtTime<-(h$V12-h$V6)/h$V18
+ggplot(data=h[h$V4 %in% c("non","0","3","5","7"),],aes(x=V4,y=avgWeghtTime,color=as.factor(V3),group=interaction(V2,as.factor(V3)),linetype=V2))+
+  stat_summary(fun.y="mean",geom="line")+stat_summary(fun.y="mean",geom="point")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  facet_wrap(~V5,scales="free_y")+theme_bw()+scale_color_brewer(palette = "Set1",name="")+
+  theme(legend.position = "bottom")+xlab("contraction")+ylab("Avg weight calculation time (log2)")+
+  scale_linetype_manual(name="",labels=c("ASTRAL-II","ASTRAL-III"),values=c(2,1))+
+  scale_y_continuous(trans = 'log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))
+ggsave("figures/ASTRALIII/weightCalc-zoomed.pdf")
