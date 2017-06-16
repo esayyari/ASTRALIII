@@ -191,7 +191,7 @@ pdf("figures/Avian-Mammalian/avia-1000-500-both-scale-time.pdf",width=7.5,height
 multiplot(
 ggplot(data=time[time$V1 == "1X" & time$V2 == "1500" & time$V6<150000,],aes(x=V4,y=V6m,color=V5,group=V5))+
   theme_bw()+
-  scale_color_brewer(palette = "Set1",name="") +
+  scale_color_brewer(palette = "Set1",name="",labels=c("ASTRAL-II","ASTRAL-III")) +
   scale_y_continuous(trans = log2_trans(),breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   theme(legend.position = c(0.75,0.2))+

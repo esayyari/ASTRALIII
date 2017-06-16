@@ -185,6 +185,16 @@ ggsave("figures/ASTRALIII/setX-both.pdf")
 h<-read.csv('data/ASTRALIII/weightcalculations.csv',sep=" ",header=F)
 h$V4<-factor(h$V4,levels=c("non","0","3","5","7","10","20","33","50","75"))
 
+ggplot(data=h,aes(x=V4,y=avgWeghtTime,color=V2,group=interaction(V2,as.factor(V3)),linetype=as.factor(V3)))+
+  stat_summary(fun.y="mean",geom="line")+#stat_summary(fun.y="mean",geom="point")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.3,linetype=1,size=0.3)+
+  facet_wrap(~V5,nrow=1)+theme_bw()+scale_color_brewer(palette = "Set1",name="",labels=c("ASTRAL-II","ASTRAL-III"))+
+  theme(legend.position = c(.1,.7),legend.direction = 2)+xlab("contraction")+ylab("Avg weight calculation time (seconds)")+
+  scale_linetype_manual(name="",values=c(4,3,2,1))+
+  scale_y_continuous(trans = 'log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))
+ggsave("figures/ASTRALIII/weightCalc.pdf",width=12,height = 4.2)
+
 h$avgWeghtTime<-(h$V12-h$V6)/h$V18
 ggplot(data=h[h$V4 %in% c("non","0","3","5","7"),],aes(x=V4,y=avgWeghtTime,color=as.factor(V3),group=interaction(V2,as.factor(V3)),linetype=V2))+
   stat_summary(fun.y="mean",geom="line")+stat_summary(fun.y="mean",geom="point")+
