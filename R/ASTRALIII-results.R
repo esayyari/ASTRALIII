@@ -157,5 +157,24 @@ ggplot(data=w[],aes(x=V4,y=V6,color=as.factor(V3),group=as.factor(V3)))+
   theme(legend.position = "bottom")+xlab("contraction")+ylab("Set X cluster size")
 ggsave('figures/ASTRALIII/setXsize.pdf',width=8.5,height=8.5)
 
+ggplot(data=time[time$V2 %in% c("ASTRAL.5.2.5","ASTRAL.4.11.1"),],
+       aes(x=V4,y=V6,color=as.factor(V3),group=interaction(V2,as.factor(V3)),linetype=V2))+
+  stat_summary(fun.y="mean",geom="line")+theme_bw()+
+  stat_summary(fun.y="mean",geom="point")+theme(legend.position ="bottom")+
+  scale_color_brewer(palette = "Set1",name="")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},
+               width=0.3)+xlab("contraction")+ylab("Running time (seconds)")+
+  facet_wrap(~V5,scales = "free_y")+
+  scale_linetype_manual(name="",labels=c("ASTRAL-II","ASTRAL-III"),values=c(2,1))
+ggsave("figures/ASTRALIII/time-both.pdf")
 
+ggplot(data=w[w$V2 %in% c("ASTRAL.5.2.5","ASTRAL.4.11.1"),],aes(x=V4,y=V6,color=as.factor(V3),group=interaction(V2,as.factor(V3)),linetype=V2))+
+  stat_summary(fun.y="mean",geom="line")+stat_summary(fun.y="mean",geom="point")+
+  stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+                                  fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
+  facet_wrap(~V5,scales="free_y")+theme_bw()+scale_color_brewer(palette = "Set1",name="")+
+  theme(legend.position = "bottom")+xlab("contraction")+ylab("Set X cluster size")+
+  scale_linetype_manual(name="",labels=c("ASTRAL-II","ASTRAL-III"),values=c(2,1))
+ggsave("figures/ASTRALIII/setX-both.pdf")
        

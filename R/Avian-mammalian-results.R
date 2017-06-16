@@ -91,9 +91,9 @@ ggplot(data=d[d$seq.length == "500",],
        aes(contraction.rate,Error.Rate))+
   stat_summary(aes(group=input.type,color=input.type),
                geom=c("line","point"),linetype=2)+
-  #stat_summary(aes(group=input.type,color=input.type),
-  #             geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
-  #             fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4,linetype=2)+
+  stat_summary(aes(group=input.type,color=input.type),
+               geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
+               fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4,linetype=2)+
   stat_summary(aes(group=1),geom="line",linetype=1)+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.4)+
@@ -220,4 +220,9 @@ ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group
   theme(legend.position = c(0.85,0.2))+geom_smooth(method="lm")+
   facet_wrap(~V2)+ylab("Running time (seconds)")+xlab("#Genes")
   ggsave('figures/Avian-Mammalian/avia-1000-500-log-log-smooth-time.pdf',width=7.47,height=4.33)
+  
+  
+xy=read.csv("data/xyall2.stat",sep=" ",header=F)
+qplot(log(V15,base=V9),color=V1,data=xy,geom="density",xlab=expression (log[paste('|',X,'|')](paste("|",Y,"|"))))+theme_bw()+scale_color_brewer(name="",palette = "Set2",labels=c("Avian","S1"))+theme(legend.position = c(.8,.7)) #+geom_vline(xintercept = median(log(xy$V15,base=xy$V9)),linetype=2,color="red")
+ggsave("figures/xy.pdf")
   
