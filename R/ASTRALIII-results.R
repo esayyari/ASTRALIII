@@ -2,9 +2,9 @@ require(ggplot2)
 require(reshape2)
 require(scale)
 d<-read.csv('data/ASTRALIII/species.comparison.results.csv', sep=" ",header=F)
+d$V1<-as.numeric(as.character(d$V1))
 p<-read.csv('data/ASTRALIII/parameter.log.info',sep=" ",header=T)
 g<-read.csv('data/ASTRALIII/gtError.csv',sep=" ",header=F)
-d$V2<-droplevels(d$V2)
 
 
 tr<-read.csv('data/ASTRALIII/truecompare.csv',sep=" ",header=F)
