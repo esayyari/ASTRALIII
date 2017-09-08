@@ -1,6 +1,6 @@
 require(ggplot2)
 require(reshape2)
-require(scale)
+require(scales)
 d<-read.csv('data/ASTRALIII/species.comparison.results.csv', sep=" ",header=F)
 d$V1<-as.numeric(as.character(d$V1))
 p<-read.csv('data/ASTRALIII/parameter.log.info',sep=" ",header=T)
@@ -61,6 +61,8 @@ k$V4<-factor(k$V4,levels=c("non","0","3","5","7","10","20","33","50","75"))
 
 k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/4,1/3,1/2,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
 #k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
+k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/2,1),labels=c("Low (<50%)","High (>50%)"))
+
 
 k$AL=as.factor(k$V3)
 
