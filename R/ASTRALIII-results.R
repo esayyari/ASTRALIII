@@ -78,7 +78,7 @@ ggplot(data=k,aes(x=V4,y=V8))+facet_grid(V5~V2,scales="free_y")+stat_summary(gro
 ggsave('figures/ASTRALIII/mean-point-contraction-all-ASTRALIII.pdf',width=8.69, height=8.4)
 
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5","ASTRAL.4.11.1"),],aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5","ASTRAL.5.5.2"),],aes(x=V4,y=V8,group=meanGtErrorbin,color=meanGtErrorbin))+
   facet_grid(V5~V2,scales="free_y")+stat_summary(geom="line")+
   theme_bw()+xlab("contraction")+ylab("FN ratio")+
   stat_summary(geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
@@ -86,7 +86,7 @@ ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5","ASTRAL.4.11.1"),],aes(x=V4,y=V8,group=
   theme(legend.position = "bottom")+scale_color_brewer(palette = "Dark2",name="")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII.pdf',width=8.69, height=8.4)
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5"),],aes(x=V4,y=V8))+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.5.2"),],aes(x=V4,y=V8))+
   stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom=c("line","point"),linetype=2)+
   stat_summary(aes(group=meanGtErrorbin,color=meanGtErrorbin),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
                fun.ymax = function(x) {mean(x)+sd(x)/sqrt(length(x))},width=0.2,linetype=2)+
@@ -98,7 +98,7 @@ ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5"),],aes(x=V4,y=V8))+
   theme(legend.position = c(.08,.7))+scale_color_brewer(palette = "Dark2",name="Mean GT error")
 ggsave('figures/ASTRALIII/mean-point-contraction-gtError-ASTRALIII-paper.pdf',width=12, height=4)
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5") & k$V4!="75",],aes(x=V4,y=V8))+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.5.2") & k$V4!="75",],aes(x=V4,y=V8))+
   stat_summary(aes(group=AL,color=AL),geom=c("line"),linetype=2)+
   stat_summary(aes(group=AL,color=AL),geom=c("point"),size=0.5)+
   #stat_summary(aes(group=AL,color=AL),geom="errorbar",fun.ymin=function(x) {mean(x)-sd(x)/sqrt(length(x))},
@@ -112,19 +112,19 @@ ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5") & k$V4!="75",],aes(x=V4,y=V8))+
 ggsave('figures/ASTRALIII/mean-point-contraction-AL-ASTRALIII-paper.pdf',width=12, height=4.1)
 
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5"),],aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.5.2"),],aes(x=as.factor(V3),y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
   theme_bw()+xlab("seq length")+ylab("FN ratio")+scale_fill_brewer(palette = "RdBu",name="")+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/boxplot-contraction-seqLength-ASTRALIII.pdf',width=8.69, height=9)
 
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5"),],aes(x=meanGtErrorbin,y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.5.2"),],aes(x=meanGtErrorbin,y=V8,fill=V4))+facet_wrap(~V5,scales="free_y")+geom_boxplot(group=1)+
   theme_bw()+xlab("gt Error")+ylab("FN ratio")+scale_fill_brewer(palette = "RdBu",name="")+
   theme(legend.position ="bottom")
 ggsave('figures/ASTRALIII/boxplot-contraction-gtError-ASTRALIII.pdf',width=8.69, height=9)
 
 
-ggplot(data=k[k$V2 %in% c("ASTRAL.5.2.5"),],aes(x=as.factor(V5),y=V8,color=V4,group=V4))+
+ggplot(data=k[k$V2 %in% c("ASTRAL.5.5.2"),],aes(x=as.factor(V5),y=V8,color=V4,group=V4))+
   stat_summary(group=1,fun.y=mean,geom="point")+
   facet_wrap(~meanGtErrorbin,scales="free_y")+theme_bw()+xlab("number of genes")+ylab("FN ratio")+
   scale_fill_brewer(palette = "Set1",name="")+
