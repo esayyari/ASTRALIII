@@ -63,6 +63,8 @@ k$V5<-factor(k$V5,levels=c("non","0","3","5","7","10","20","33","50","75"))
 
 k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/4,1/3,1/2,1),labels=c("very low (<25%)","low (<33%)","high (<50%)","very high (<100%)"))
 #k$meanGtErrorbin<-cut(k$rf,breaks=c(min(k$rf)-0.0001,quantile(k$rf)[2:5]),labels=c("very low gt err","low gt err","high gt err","very high gt err"))
+k$meanGtErrorbin<-cut(k$rf,breaks=c(0,1/2,1),labels=c("Low (<50%)","High (>50%)"))
+
 
 k$AL=as.factor(k$V3)
 
