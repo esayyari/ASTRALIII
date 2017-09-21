@@ -334,7 +334,7 @@ stderr<-function(x){sd(x)/sqrt(length(x))}
 finalt1<-cbind(dcast(data=hsum,V3+V6~.,fun.aggregate=mean,value.var = "FN"),
       dcast(data=hsum,V3+V6~.,fun.aggregate=stderr,value.var = "FN"))[,c(1,2,3,6)]
 
-finalt1$FN<-paste(format.df(finalt1$.,digits=5),format.df(finalt1$..1,digits=2),sep=" (")
+finalt1$FN<-paste(finalt1$.,format.df(finalt1$..1,digits=2),sep=" (")
 finalt1$FN<-paste(finalt1$FN,")",sep="")
 
 finalt2<-cbind(dcast(data=hsum,V3+V6~.,fun.aggregate=mean,value.var = "SpaceX"),
@@ -354,3 +354,4 @@ finalt<-finalt[,c(1,2,5,8,11)]
 finalt$model<-paste(finalt$V6,finalt$V3,sep="-")
 finalt<-finalt[,c(6,3,4,5)]
 latex(finalt,file = "figures/ASTRALIII/latest/finaltable.tex")
+
