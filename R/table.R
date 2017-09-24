@@ -180,6 +180,8 @@ astral3<-d
 astral3$dataset<-"S100"
 astral3$model<-paste(astral3$V3,astral3$V6,sep="-")
 astral3<-astral3[astral3$V4=="estimated" & astral3$V5=="non",]
+
+
 d<-read.csv('data/ASTRALII/FN.all',sep=" ",header=F)
 d<-d[d$V4=="original",]
 d<-d[!d$V5 %in% c(8,49,15),]
@@ -198,6 +200,18 @@ d2$model<-paste(d2$distance,d2$length,sep="-")
 avian<-d2
 avian$model<-paste(avian$distance,avian$length,sep='-')
 
-astral3<-astral3[,c(11,10,1,)]
+astral3<-astral3[,c(11,10,1,2,9)]
+astral2<-astral2[,c(8,7,5,2,6)]
+avian<-avian[,c(17,16,3,6,9)]
+names(astral3)<-c("model","dataset","replicate","version","FN")
+names(astral2)<-c("model","dataset","replicate","version","FN")
+avian<-melt(data=avian,id=c("model","dataset","replicate"))
+levels(astral3$version)<-list("ASTRALII"="ASTRAL.4.11.2","ASTRALIII"="ASTRAL.5.5.4")
+levels(astral2$version)<-list("ASTRALII"="4.11.2","ASTRALIII"="5.5.4")
+names(avian)<-c("model","dataset","replicate","version","FN")
+levels(avian$version)<-list("ASTRALII"="fn2","ASTRALIII"="fn3")
+alltogether<-rbind(avian,astral2,astral3)
+summary(aov(formula=FN~version*dataset,data=alltogether))
+
 
 
