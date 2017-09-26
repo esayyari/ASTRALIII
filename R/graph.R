@@ -217,8 +217,8 @@ ggplot(data=setx[setx$V1 == "1X",],aes(x=V4,y=V6,color=V5,group=V5))+
   scale_x_continuous(trans ='log2',breaks = trans_breaks("log2", function(x) 2^x),labels = trans_format("log2", math_format(2^.x)))+
   theme(legend.position = c(0.85,0.2))+
   facet_wrap(~V2)+geom_smooth(method="lm")+ylab("size of X")+stat_summary(group=1,fun.y="mean",geom="point")+xlab("#Genes")+
-  geom_text(data=data.frame(x=2^9.5,y=2^15), color="tomato", aes(x,y,label=c(format(lm(log(V6m)~log(V4),data=time[time$V2=="500"&time$V5=="ASTRAL2",])$coefficients[[2]],digits=3), format(lm(log(V6m)~log(V4),data=time[time$V2=="1500"&time$V5=="ASTRAL2",])$coefficients[[2]],digits=3))), inherit.aes=F)+
-  geom_text(data=data.frame(x=2^11.5,y=2^14.5), color="steelblue", aes(x,y,label=c(format(lm(log(V6m)~log(V4),data=time[time$V2=="500"&time$V5=="ASTRAL3",])$coefficients[[2]],digits=3), format(lm(log(V6m)~log(V4),data=time[time$V2=="1500"&time$V5=="ASTRAL3",])$coefficients[[2]],digits=3))), inherit.aes=F)
+  geom_text(data=data.frame(x=2^9.5,y=2^15), color="tomato", aes(x,y,label=c(format(lm(log(V6)~log(V4),data=setx[setx$V2=="500"&setx$V5=="ASTRAL2",])$coefficients[[2]],digits=3), format(lm(log(V6)~log(V4),data=setx[setx$V2=="1500"&setx$V5=="ASTRAL2",])$coefficients[[2]],digits=3))), inherit.aes=F)+
+  geom_text(data=data.frame(x=2^11.5,y=2^14.5), color="steelblue", aes(x,y,label=c(format(lm(log(V6)~log(V4),data=setx[setx$V2=="500"&setx$V5=="ASTRAL3",])$coefficients[[2]],digits=3), format(lm(log(V6)~log(V4),data=setx[setx$V2=="1500"&setx$V5=="ASTRAL3",])$coefficients[[2]],digits=3))), inherit.aes=F)
 ggsave('avian-1000-500-log-log-setx.pdf',width=7.47,height=4.33)
 
 ggplot(data=setx[setx$V1 == "1X",],aes(x=V4,y=V6,color=V5,group=V5))+
