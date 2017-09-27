@@ -223,6 +223,12 @@ ggplot(data=time[time$V1 == "1X" & time$V6<150000,],aes(x=V4,y=V6,color=V5,group
   
   
 xy=read.csv("data/xyall2.stat",sep=" ",header=F)
-qplot(log(V15,base=V9),color=V1,data=xy,geom="density",xlab=expression (log[paste('|',X,'|')](paste("|",Y,"|"))))+theme_bw()+scale_color_brewer(name="",palette = "Set2",labels=c("Avian","S1"))+theme(legend.position = c(.8,.7)) #+geom_vline(xintercept = median(log(xy$V15,base=xy$V9)),linetype=2,color="red")
+xs200=read.csv("data/xy-s200.txt")
+xs200=xs200[xs200$V4=="original",]
+xy=rbind(data.frame(X=xy$V9,Y=xy$V15,DS=xy$V1),data.frame(X=xs200$V6.x,Y=xs200$V6.y,DS="S200"))
+qplot(log(Y,base=X),color=DS,data=xy,geom="density",
+      xlab=expression (log[paste('|',X,'|')](paste("|",Y,"|"))))+
+  theme_bw()+scale_color_brewer(name="",palette = "Set2",labels=c("Avian","S100","S200"))+
+  theme(legend.position = c(.8,.7)) #+geom_vline(xintercept = median(log(xy$V15,base=xy$V9)),linetype=2,color="red")
 ggsave("figures/xy.pdf")
   
