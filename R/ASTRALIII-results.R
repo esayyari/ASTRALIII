@@ -190,7 +190,7 @@ ggplot(data=w[w$V6 == "estimated" & w$V3 %in% c("1600","200"),],
         strip.text.x = element_text(size=12,color="black"),
         legend.text=element_text(size=12,color="black"))+xlab("contraction")+ylab("Set X cluster size")+
   scale_linetype_manual(name="",values=c(1,2))
-ggsave("figures/ASTRALIII/latest/setX-both.pdf",width=14 , height= 5)
+ggsave("figures/ASTRALIII/latest/setX-both.pdf",width=12 , height= 4.2)
        
 ggplot(data=w[w$V6 == "estimated"& !w$V3 %in% c("1600","200"),],
        aes(x=V4,y=V7,color=as.factor(V2),group=interaction(V2,as.factor(V3)),linetype=V3))+
@@ -203,7 +203,7 @@ ggplot(data=w[w$V6 == "estimated"& !w$V3 %in% c("1600","200"),],
         strip.text.x = element_text(size=12,color="black"),
         legend.text=element_text(size=12,color="black"))+xlab("contraction")+ylab("Set X cluster size")+
   scale_linetype_manual(name="",values=c(1,2))
-ggsave("figures/ASTRALIII/latest/setX-othertwo.pdf",width=14 , height= 5)
+ggsave("figures/ASTRALIII/latest/setX-othertwo.pdf",width=12 , height= 4.2)
 
 
 
