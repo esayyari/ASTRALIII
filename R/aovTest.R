@@ -1,7 +1,7 @@
 require('ggplot2')
 require('scales')
 require('Hmisc')
-d<-read.csv('data/Avian-Mammalian/avian-contraction.csv',sep="\t",header=T)
+d<-read.csv('data/Avian-Mammalian/exp2result_formated.csv',sep="\t",header=T)
 d$contraction.rate<-factor(d$contraction.rate,levels=c("ori","t0","t3","t5","t7","t10","t20", "t33", "t50","t75"))
 levels(d$contraction.rate)<-list("non"="ori","0"="t0","3"="t3","5"="t5","7"="t7",
                                  "10"="t10","20"="t20","33"="t33","50"="t50","75"="t75")
